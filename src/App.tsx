@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center text-white w-screen bg-gray-800">
+    <main className="flex min-h-screen flex-col items-center text-white w-screen bg-gray-800  scrollbar-thumb-slate-800 scrollbar-track-slate-400">
       <div className="container flex flex-col items-center px-4 py-16">
         <div className="">
           <button

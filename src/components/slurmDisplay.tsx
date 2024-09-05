@@ -67,7 +67,7 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
         <div>{isComplete ? <Check color="green" /> : <X color="red" />}</div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[800px]">
+      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[800px] ">
         <div className="flex flex-col border border-red-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-red-500/10">
           <div className="flex flex-col items-center mt-4">
             <span className="text-xl font-bold">Failed Jobs</span>
@@ -92,7 +92,7 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
           </div>
         </div>
 
-        <div className="flex flex-col border border-green-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-green-500/10">
+        <div className="flex flex-col border border-green-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-green-500/10 scrollbar-thin">
           <div className="flex flex-col items-center mt-4">
             <span className="text-xl font-bold">Completed Jobs</span>
             <span className="font-medium">({uniqueCompletedJobs.length})</span>
