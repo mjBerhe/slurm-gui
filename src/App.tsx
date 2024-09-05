@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center text-white w-screen bg-gray-800  scrollbar-thumb-slate-800 scrollbar-track-slate-400">
+    <main className="font-inter flex min-h-screen flex-col items-center text-white w-screen dark:bg-[rgba(17,24,39,1)] scrollbar-thumb-slate-800 scrollbar-track-slate-400">
       <div className="container flex flex-col items-center px-4 py-16">
         <div className="">
           <button
@@ -51,20 +51,3 @@ function App() {
 }
 
 export default App;
-
-// useEffect(() => {
-//   const getFiles = async () => {
-//     // const files: string = await invoke("read_files");
-//     // setFiles(files);
-//     const resourceDirPath = await resourceDir();
-
-//     const files = readTextFile(
-//       resourceDirPath + "../../../outputSlurm/slurm-2090203.out"
-//     );
-//     console.log(files);
-//     console.log(resourceDirPath);
-//     setPath(resourceDirPath);
-//     setFiles("");
-//   };
-//   getFiles();
-// }, []);

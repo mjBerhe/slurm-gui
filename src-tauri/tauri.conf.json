@@ -13,18 +13,9 @@
   "tauri": {
     "allowlist": {
       "all": false,
-      "path": { "all": true },
-      "fs": {
-        "all": true,
-        "scope": ["$RESOURCE/*"]
-      },
+      "fs": { "all": true },
       "dialog": {
-        "all": true,
-        "ask": true,
-        "confirm": true,
-        "message": true,
-        "open": true,
-        "save": true
+        "open": true
       }
     },
     "bundle": {

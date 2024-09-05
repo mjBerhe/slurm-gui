@@ -1,5 +1,10 @@
 import { Check, X } from "lucide-react";
 
+type Job = {
+  jobMessage: string;
+  jobNumber: string;
+};
+
 export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string } }> = (
   props
 ) => {
@@ -28,13 +33,25 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
   const allCompletedJobs = allStrings.filter((x) =>
     x.includes("completed successfully.")
   );
-  const uniqueCompletedJobs = [...new Set(allCompletedJobs)];
-  const uniqueCompletedJobIds = uniqueCompletedJobs.map((x) => x.match(jobRegex)?.[1]);
+  // all completed jobs in order of job ID
+  const uniqueCompletedJobs: Job[] = [...new Set(allCompletedJobs)]
+    .map((x) => ({
+      jobMessage: x,
+      jobNumber: x.match(jobRegex)?.[1] as string,
+    }))
+    .sort((a, b) => parseInt(a.jobNumber) - parseInt(b.jobNumber));
+  const uniqueCompletedJobIds = uniqueCompletedJobs.map((x) => x.jobNumber);
 
-  const resubmittedJobs = allStrings.filter((x) => x.includes("resubmitted with ID"));
+  const resubmittedJobs: Job[] = allStrings
+    .filter((x) => x.includes("resubmitted with ID"))
+    .map((x) => ({
+      jobMessage: x,
+      jobNumber: x.match(jobRegex)?.[1] as string,
+    }))
+    .sort((a, b) => parseInt(a.jobNumber) - parseInt(b.jobNumber));
 
   // all jobs that failed
-  const failedJobs = allStrings
+  const failedJobs: Job[] = allStrings
     .filter(
       (x) =>
         x.includes("failed") ||
@@ -43,15 +60,15 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
     .map((x) => {
       return {
         jobMessage: x,
-        jobNumber: x.match(jobRegex)?.[1],
+        jobNumber: x.match(jobRegex)?.[1] as string,
       };
-    });
+    })
+    .sort((a, b) => parseInt(a.jobNumber) - parseInt(b.jobNumber));
+
   // all jobs that failed and never completed after being resubmitted
   const actuallyFailedJobs = failedJobs.filter(
     (x) => !uniqueCompletedJobIds.includes(x.jobNumber)
   );
-
-  // const completeJobsStrings = allStrings.filter((x) => x === "Complete jobs: 0.");
 
   const isComplete = uniqueCompletedJobs.length === totalJobs;
 
@@ -68,7 +85,7 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
       </div>
 
       <div className="grid grid-cols-3 gap-6 mt-8 min-w-[800px] ">
-        <div className="flex flex-col border border-red-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-red-500/10">
+        <div className="flex flex-col border border-red-500 rounded-xl px-4 max-h-[500px] max-w-[333px] overflow-y-auto dark:bg-red-500/[0.075]">
           <div className="flex flex-col items-center mt-4">
             <span className="text-xl font-bold">Failed Jobs</span>
             <span className="font-medium">({actuallyFailedJobs.length})</span>
@@ -80,26 +97,26 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
           </div>
         </div>
 
-        <div className="flex flex-col border border-yellow-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-yellow-500/10">
+        <div className="flex flex-col border border-yellow-500 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto dark:bg-yellow-500/[0.075]">
           <div className="flex flex-col items-center mt-4">
             <span className="text-xl font-bold">Resubmitted Jobs</span>
             <span className="font-medium">({resubmittedJobs.length})</span>
           </div>
           <div className="flex flex-col mt-4 items-center text-center">
             {resubmittedJobs.map((x) => (
-              <span key={x}>{x}</span>
+              <span key={x.jobMessage}>{x.jobMessage}</span>
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col border border-green-700 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto bg-green-500/10 scrollbar-thin">
+        <div className="flex flex-col border border-green-500 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto dark:bg-green-500/[0.075] scrollbar-thin">
           <div className="flex flex-col items-center mt-4">
             <span className="text-xl font-bold">Completed Jobs</span>
             <span className="font-medium">({uniqueCompletedJobs.length})</span>
           </div>
           <div className="flex flex-col mt-4 items-center text-center">
             {uniqueCompletedJobs.map((x) => (
-              <span key={x}>{x}</span>
+              <span key={x.jobMessage}>{x.jobMessage}</span>
             ))}
           </div>
         </div>
