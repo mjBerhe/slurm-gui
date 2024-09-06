@@ -75,48 +75,66 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
   return (
     <div className="flex flex-col items-center">
       <div className="w-full text-center">{fileName}</div>
-      <div className="">{totalJobs} Total Jobs</div>
+      {/* <div className="">{totalJobs} Total Jobs</div> */}
 
-      <div className="mt-4 flex gap-x-2">
-        <span>
+      <div className="mt-4 flex gap-x-2 items-center">
+        <span className="text-xl font-bold">
           {uniqueCompletedJobs.length} / {totalJobs} Completed
         </span>
         <div>{isComplete ? <Check color="green" /> : <X color="red" />}</div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[800px] ">
-        <div className="flex flex-col border border-red-500 rounded-xl px-4 max-h-[500px] max-w-[333px] overflow-y-auto dark:bg-red-500/[0.075]">
-          <div className="flex flex-col items-center mt-4">
-            <span className="text-xl font-bold">Failed Jobs</span>
-            <span className="font-medium">({actuallyFailedJobs.length})</span>
+      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[1000px]">
+        <div className="flex flex-col border border-gray-700 rounded-xl px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-red-500/[0.2] hover:bg-red-500/[0.3]">
+          <div className="flex flex-col mt-4 gap-y-1">
+            <span className="text-xl font-bold">
+              Failed Jobs ({actuallyFailedJobs.length})
+            </span>
+            <span className="text-sm text-gray-300 min-h-[40px]">
+              Jobs that failed and never completed successfully
+            </span>
           </div>
-          <div className="flex flex-col mt-4 items-center text-center">
+          <div className="flex flex-col mt-5 gap-y-1">
             {actuallyFailedJobs.map((x) => (
-              <span key={x.jobMessage}>{x.jobMessage}</span>
+              <span className="text-sm" key={x.jobMessage}>
+                {x.jobMessage}
+              </span>
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col border border-yellow-500 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto dark:bg-yellow-500/[0.075]">
-          <div className="flex flex-col items-center mt-4">
-            <span className="text-xl font-bold">Resubmitted Jobs</span>
-            <span className="font-medium">({resubmittedJobs.length})</span>
+        <div className="flex flex-col border border-gray-700 rounded-lg px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-yellow-500/[0.2] hover:bg-yellow-500/[0.3]">
+          <div className="flex flex-col mt-4 gap-y-1">
+            <span className="text-xl font-bold">
+              Resubmitted Jobs ({resubmittedJobs.length})
+            </span>
+            <span className="text-sm text-gray-300">
+              Jobs that failed and got resubmitted
+            </span>
           </div>
-          <div className="flex flex-col mt-4 items-center text-center">
+          <div className="flex flex-col mt-5 gap-y-1">
             {resubmittedJobs.map((x) => (
-              <span key={x.jobMessage}>{x.jobMessage}</span>
+              <span className="text-sm" key={x.jobMessage}>
+                {x.jobMessage}
+              </span>
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col border border-green-500 rounded-lg px-2 max-h-[500px] max-w-[300px] overflow-y-auto dark:bg-green-500/[0.075] scrollbar-thin">
-          <div className="flex flex-col items-center mt-4">
-            <span className="text-xl font-bold">Completed Jobs</span>
-            <span className="font-medium">({uniqueCompletedJobs.length})</span>
+        <div className="flex flex-col border border-gray-700 rounded-lg px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-green-500/[0.2] hover:bg-green-500/[0.3] scrollbar-thin">
+          <div className="flex flex-col mt-4 gap-y-1">
+            <span className="text-xl font-bold">
+              Completed Jobs ({uniqueCompletedJobs.length})
+            </span>
+            <span className="text-sm text-gray-300">
+              Jobs that completed successfully
+            </span>
           </div>
-          <div className="flex flex-col mt-4 items-center text-center">
+          <div className="flex flex-col mt-5 gap-y-1">
             {uniqueCompletedJobs.map((x) => (
-              <span key={x.jobMessage}>{x.jobMessage}</span>
+              <span className="text-sm" key={x.jobMessage}>
+                {x.jobMessage}
+              </span>
             ))}
           </div>
         </div>
