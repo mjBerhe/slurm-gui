@@ -59,11 +59,6 @@ function App() {
       });
       setOutputFiles(importantFiles);
       setSelectedFile(undefined);
-      // const mostRecentFile = importantFiles.at(-1);
-      // if (mostRecentFile) {
-      //   const contents = await readTextFile(mostRecentFile.path);
-      //   setSelectedFile({ pathName: mostRecentFile.path, contents: contents });
-      // }
       console.log(importantFiles);
     } catch (err) {
       console.error(err);
