@@ -9,7 +9,7 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
   props
 ) => {
   const { file } = props;
-  const { pathName, contents } = file;
+  const { contents } = file;
 
   // gets everything after the last backslash (getting the file name)
   // const fileName = pathName.match(/(?<=\\)[^\\$]*$/);
