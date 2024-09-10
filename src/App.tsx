@@ -2,7 +2,7 @@ import { useState } from "react";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import "./App.css";
-import { readTextFile, readDir, BaseDirectory, FileEntry } from "@tauri-apps/api/fs";
+import { readTextFile, readDir, FileEntry } from "@tauri-apps/api/fs";
 import { open } from "@tauri-apps/api/dialog";
 
 import {
@@ -10,7 +10,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "./components/ui/select";

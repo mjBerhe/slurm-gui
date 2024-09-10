@@ -12,7 +12,7 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
   const { pathName, contents } = file;
 
   // gets everything after the last backslash (getting the file name)
-  const fileName = pathName.match(/(?<=\\)[^\\$]*$/);
+  // const fileName = pathName.match(/(?<=\\)[^\\$]*$/);
 
   // splits file contents line by line
   const allStrings = contents.split(/\r?\n/);
