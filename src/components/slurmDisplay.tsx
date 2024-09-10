@@ -74,11 +74,11 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full text-center">{fileName}</div>
+      {/* <div className="w-full text-center">{fileName}</div> */}
       {/* <div className="">{totalJobs} Total Jobs</div> */}
 
-      <div className="mt-4 flex gap-x-2 items-center">
-        <span className="text-xl font-bold">
+      <div className="mt-0 flex gap-x-2 items-center">
+        <span className="text-2xl font-bold">
           {uniqueCompletedJobs.length} / {totalJobs} Completed
         </span>
         <div>{isComplete ? <Check color="green" /> : <X color="red" />}</div>
