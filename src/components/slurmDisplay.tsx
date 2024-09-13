@@ -1,4 +1,5 @@
 import { Check, X } from "lucide-react";
+import { cn } from "../lib/utils";
 
 type Job = {
   jobMessage: string;
@@ -74,9 +75,6 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
 
   return (
     <div className="flex flex-col items-center">
-      {/* <div className="w-full text-center">{fileName}</div> */}
-      {/* <div className="">{totalJobs} Total Jobs</div> */}
-
       <div className="mt-0 flex gap-x-2 items-center">
         <span className="text-2xl font-bold">
           {uniqueCompletedJobs.length} / {totalJobs} Completed
@@ -84,9 +82,9 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
         <div>{isComplete ? <Check color="green" /> : <X color="red" />}</div>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[1000px]">
-        <div className="flex flex-col border border-gray-700 rounded-xl px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-red-500/[0.2] hover:bg-red-500/[0.3]">
-          <div className="flex flex-col mt-4 gap-y-1">
+      <div className="grid grid-cols-3 gap-6 mt-8 min-w-[1000px] w-full">
+        <JobCard className="bg-red-500/[0.2] hover:bg-red-500/[0.3]">
+          <div className="flex flex-col gap-y-1">
             <span className="text-xl font-bold">
               Failed Jobs ({actuallyFailedJobs.length})
             </span>
@@ -101,10 +99,10 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
               </span>
             ))}
           </div>
-        </div>
+        </JobCard>
 
-        <div className="flex flex-col border border-gray-700 rounded-lg px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-yellow-500/[0.2] hover:bg-yellow-500/[0.3]">
-          <div className="flex flex-col mt-4 gap-y-1">
+        <JobCard className="bg-yellow-500/[0.2] hover:bg-yellow-500/[0.3]">
+          <div className="flex flex-col gap-y-1">
             <span className="text-xl font-bold">
               Resubmitted Jobs ({resubmittedJobs.length})
             </span>
@@ -119,10 +117,10 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
               </span>
             ))}
           </div>
-        </div>
+        </JobCard>
 
-        <div className="flex flex-col border border-gray-700 rounded-lg px-6 max-h-[500px] max-w-[333px] overflow-y-auto bg-green-500/[0.2] hover:bg-green-500/[0.3] scrollbar-thin">
-          <div className="flex flex-col mt-4 gap-y-1">
+        <JobCard className="bg-green-500/[0.2] hover:bg-green-500/[0.3]">
+          <div className="flex flex-col gap-y-1">
             <span className="text-xl font-bold">
               Completed Jobs ({uniqueCompletedJobs.length})
             </span>
@@ -137,8 +135,24 @@ export const SlurmDisplay: React.FC<{ file: { pathName: string; contents: string
               </span>
             ))}
           </div>
-        </div>
+        </JobCard>
       </div>
+    </div>
+  );
+};
+
+const JobCard: React.FC<{ children: React.ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex flex-col border border-gray-700 py-4 rounded-lg px-6 max-h-[500px] overflow-y-auto scrollbar-thin",
+        className
+      )}
+    >
+      {children}
     </div>
   );
 };
